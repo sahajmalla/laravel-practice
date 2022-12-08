@@ -10,7 +10,7 @@ class UserRepository
     public function index(array $request)
     {
         $pagination = isset($request['per_page']) ? $request['per_page'] : 10;
-        $user = User::paginate($pagination);
+        $user = User::GetUsersAlphabeticallyWithPagination($pagination);
         return UserResource::collection($user)->response()->getData(true);
     }
 }
