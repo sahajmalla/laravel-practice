@@ -9,8 +9,20 @@ class UserRepository
 {
     public function index(array $request)
     {
-        $pagination = isset($request['per_page']) ? $request['per_page'] : 10;
+        $pagination = $this->setPaginationValue($request);
         $user = User::GetUsersAlphabeticallyWithPagination($pagination);
         return UserResource::collection($user)->response()->getData(true);
+    }
+
+    public function search($paginationVal, $data)
+    {
+        $pagination = $this->setPaginationValue($paginationVal);
+        $user = User::SearchUsers($data,$pagination);
+        return UserResource::collection($user)->response()->getData(true);
+    }
+
+    private function setPaginationValue($pagination)
+    {
+        return $pagination['per_page'] ?? 10;
     }
 }

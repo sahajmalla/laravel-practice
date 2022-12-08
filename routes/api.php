@@ -15,3 +15,4 @@ use App\Http\Controllers\User\UserController;
 */
 
 Route::get('/user','User\UserController@index');
+Route::get('/user/search/{data}','User\UserController@search');

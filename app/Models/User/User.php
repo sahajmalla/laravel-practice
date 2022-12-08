@@ -39,4 +39,9 @@ class User extends Authenticatable
     public function scopeGetUsersAlphabeticallyWithPagination($query, $perPage){
         return $query->orderBy('name')->paginate($perPage);
     }
+
+    public function scopeSearchUsers($query,$data,$pagination){
+        return $query->where('name', 'like', "%$data%")
+            ->orWhere('email', 'like', "%$data%")->paginate($pagination);
+    }
 }

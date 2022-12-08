@@ -27,11 +27,16 @@ class UserController extends BaseController
      */
     public function index(PaginationRequest $request)
     {
-        // add logic for search query
-        // add sorting by name
+
         $result = $this->userRepository->index($request->validated());
         return $this->sendSuccess($result);
 
+    }
+
+    public function search(PaginationRequest $request, $userData): \Illuminate\Http\JsonResponse
+    {
+        $result = $this->userRepository->search($request, $userData);
+        return $this->sendSuccess($result);
     }
 
     /**
