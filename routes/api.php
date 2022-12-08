@@ -14,5 +14,4 @@ use App\Http\Controllers\User\UserController;
 |
 */
 
-Route::apiResource('/user','User\UserController')->only(['index']);
-
+Route::get('/user','User\UserController@index');

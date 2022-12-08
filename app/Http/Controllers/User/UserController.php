@@ -2,22 +2,36 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaginationRequest;
 use App\Http\Resources\User\UserResource;
 use App\Models\User\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
+use \Exception;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
+    protected $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PaginationRequest $request)
     {
-        $user = User::paginate(10);
-        return ['key'=>UserResource::collection($user)->response()->getData(true)];
+        // add logic for search query
+        // add sorting by name
+        $result = $this->userRepository->index($request->validated());
+        return $this->sendSuccess($result);
+
     }
 
     /**
